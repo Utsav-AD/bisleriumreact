@@ -6,6 +6,7 @@ import PaginationItem from "@mui/material/PaginationItem";
 import Stack from "@mui/material/Stack";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Link } from "react-router-dom";
 
 const Posts = () => {
   const [posts, setPosts] = useState(DUMMY_POSTS);
@@ -21,6 +22,9 @@ const Posts = () => {
 
   return (
     <section className="posts">
+      <Link to="/post" className="text-white">
+        <button className="p-2 bg-red-200 text-white">Post a Blog</button>
+      </Link>
       {currentPosts.length > 0 ? (
         <>
           <div className="container posts_container">
