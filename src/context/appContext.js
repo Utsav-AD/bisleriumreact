@@ -5,8 +5,16 @@ export const AppContext = createContext();
 
 function AppContextProvider(props){
     const {user, setUser} = useState();
-    const loginUser = (email, password) => {
-
+    const loginUser = async(email, password) => {
+        let userData={
+            email, password
+        } 
+        try{
+            const response = await axios.post("https://localhost:7241/api/User/Login", userData);
+            return response;
+        } catch(err){
+            console.log(err);
+        }
     }
 
     const registerUser = async (firstName, lastName, phoneNumber, email, password ,confirmPassword, role) => {
