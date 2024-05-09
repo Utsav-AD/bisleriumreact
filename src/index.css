@@ -1,0 +1,240 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poppins:wght@300&display=swap");
+
+* {
+  font-family: "Oswald", sans-serif;
+} */
+
+/*Home*/
+
+.posts_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+}
+.author_posts-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+}
+.center {
+  text-align: center;
+  padding-top: 5rem;
+  margin-inline: center;
+  display: block;
+  width: 100%;
+}
+.post {
+  background: rgb(232, 231, 230);
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: var(--transition);
+}
+
+.post:hover {
+  box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+.post_thumbnail {
+  border-radius: var(--radius-4); /* Adjusted to match post border-radius */
+  overflow: hidden;
+  height: 16rem;
+}
+
+.post_content {
+  margin-top: 1.5rem;
+}
+
+.post_content h3 {
+  margin: 1rem 0 0.6rem;
+}
+
+.post_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 2rem;
+}
+
+.post_author {
+  display: flex;
+  gap: 1rem;
+  align-items: center; /* Adjusted to align center */
+}
+
+.post_author-avatar {
+  width: 2.5rem;
+  height: 2.5rem; /* Adjusted to match width for a square avatar */
+  border-radius: 50%; /* Ensuring a circular avatar */
+  overflow: hidden;
+}
+
+.btn.primary {
+  background-color: #41dc2c;
+  color: #ffffff;
+}
+.btn.secondary {
+  background-color: red;
+  color: #ffffff;
+}
+
+.btn.primary:hover {
+  background-color: #0056b3;
+}
+
+/* Adjust margin or spacing between buttons */
+.btn + .btn {
+  margin-left: 0.5rem;
+}
+
+.btn.category {
+  background: #9c88ff;
+  color: #4e387e;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btn.category:hover {
+  background: #4e387e;
+  color: #ffffff;
+}
+
+.post-detail {
+  margin-top: 2rem;
+  width: 50%;
+  background-color: rgb(189, 219, 255);
+  margin-inline: auto;
+  padding: 2rem 0;
+}
+
+.post-detail_container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.post-detail_header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.post-detail_buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.post-detail_thumbnail {
+  margin: 1rem 0;
+  height: fit-content;
+  max-height: 30rem;
+  overflow: hidden;
+}
+.post-detail p {
+  margin-bottom: 0.7rem;
+}
+.post-voting {
+  margin-top: 1rem;
+}
+
+.comment-section {
+  margin-top: 2rem;
+}
+
+.comment-section h2 {
+  margin-bottom: 1rem;
+}
+.post-detail {
+  /* Add any necessary styles for the post detail section */
+}
+
+.post-detail_container {
+  /* Add any necessary styles for the container */
+}
+
+.post-voting {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.vote-btn {
+  padding: 5px 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.vote-btn.upvote .fa-arrow-up,
+.vote-btn.downvote .fa-arrow-down {
+  font-size: 1.5em; /* Adjust icon size */
+}
+
+.vote-btn.active {
+  color: #0079d3; /* Change color for active button */
+}
+
+.vote-count {
+  margin: 0 10px;
+}
+
+.comment-form-container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.like-button {
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment-input-container {
+  margin-bottom: 10px;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-comment-button {
+  padding: 5px 10px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comments-container {
+  margin-top: 20px;
+}
+
+.comments-list {
+  list-style: none;
+  padding: 0;
+}
+
+.comments-list li {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
