@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function RegisterComponent() {
-  const [formData, setFormData] = useState({
+  const [userFormData, setUserFormData] = useState({
     firstName: "",
     lastName: "",
     phoneNumber: "",
@@ -13,60 +13,52 @@ function RegisterComponent() {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setUserFormData({ ...userFormData, [e.target.name]: e.target.value });
   };
 
-  const registerformData = async () => {
-    console.log("register formData");
+const registerUser = async () => {
+    console.log("Registering user");
     const url = "https://localhost:7241/api/User/RegisterUser";
 
     const formData = new FormData();
-
-    formData.append("FirstName", formData.firstName);
-    formData.append("LastName", formData.lastName);
-    formData.append("PhoneNumber", formData.phoneNumber);
-    formData.append("Email ", formData.email);
-    formData.append("Password ", formData.password);
-    formData.append("ConfirmPassword  ", formData.confirmPassword);
+    formData.append("FirstName", userFormData.firstName);
+    formData.append("LastName", userFormData.lastName);
+    formData.append("PhoneNumber", userFormData.phoneNumber);
+    formData.append("Email", userFormData.email); // removed trailing space
+    formData.append("Password", userFormData.password); // removed trailing space
+    formData.append("ConfirmPassword", userFormData.confirmPassword); // removed trailing spaces
 
     try {
       const response = await fetch(url, {
         method: "POST",
         body: formData,
-        // headers: { "Content-Type": "multipart/form-data" },
       });
 
-      console.log("text", response.status);
       const jsonData = await response.json();
-      console.log(jsonData);
+      console.log("Response Status:", response.status, "Data:", jsonData);
 
       if (response.status === 200) {
-        return jsonData;
+        console.log("Registration successful:", jsonData);
       } else {
-        console.log(jsonData);
-        throw Error(jsonData.message);
+        console.error("Registration failed:", jsonData);
+        throw new Error(jsonData.message || "Unknown error occurred");
       }
-    } catch (e) {
-      throw Error(e.message);
+    } catch (error) {
+      console.error("Error:", error.message);
     }
   };
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    registerformData()
-      .then(() => {
-        console.log("good");
-      })
-      .catch((e) => {
-        console.log("bad");
-        console.log(e);
-      });
+    console.log("Form Data:", userFormData);
+    registerUser()
+      .then(() => console.log("Registration processed"))
+      .catch(error => console.error("Registration error:", error));
   };
 
   return (
     <div className="w-10/12 mx-auto py-10">
-      <form onSubmit={handleSubmit} className=" flex flex-col gap-y-10">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-y-10">
         <div className="flex flex-row justify-center gap-x-20 ">
           <div className="flex flex-row gap-2 items-center">
             <label htmlFor="firstName">First Name:</label>
@@ -74,7 +66,7 @@ function RegisterComponent() {
               type="text"
               id="firstName"
               name="firstName"
-              value={formData.firstName}
+              value={userFormData.firstName}
               onChange={handleChange}
               required
             />
@@ -85,7 +77,7 @@ function RegisterComponent() {
               type="text"
               id="lastName"
               name="lastName"
-              value={formData.lastName}
+              value={userFormData.lastName}
               onChange={handleChange}
               required
             />
@@ -98,7 +90,7 @@ function RegisterComponent() {
               type="tel"
               id="phoneNumber"
               name="phoneNumber"
-              value={formData.phoneNumber}
+              value={userFormData.phoneNumber}
               onChange={handleChange}
               required
             />
@@ -109,7 +101,7 @@ function RegisterComponent() {
               type="email"
               id="email"
               name="email"
-              value={formData.email}
+              value={userFormData.email}
               onChange={handleChange}
               required
             />
@@ -122,7 +114,7 @@ function RegisterComponent() {
               type="password"
               id="password"
               name="password"
-              value={formData.password}
+              value={userFormData.password}
               onChange={handleChange}
               required
             />
@@ -133,7 +125,7 @@ function RegisterComponent() {
               type="password"
               id="confirmPassword"
               name="confirmPassword"
-              value={formData.confirmPassword}
+              value={userFormData.confirmPassword}
               onChange={handleChange}
               required
             />
@@ -145,7 +137,7 @@ function RegisterComponent() {
             <select
               id="role"
               name="role"
-              value={formData.role}
+              value={userFormData.role}
               onChange={handleChange}
               required
             >
@@ -156,10 +148,7 @@ function RegisterComponent() {
           </div>
         </div>
         <div className=" flex flex-row justify-center mx-auto ">
-          <button
-            type="submit"
-            className="bg-blue-400 p-2 rounded-lg hover:text-white hover:transition-all"
-          >
+          <button type="submit" className="bg-blue-400 p-2 rounded-lg hover:text-white hover:transition-all">
             Register
           </button>
         </div>
