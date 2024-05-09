@@ -1,163 +1,171 @@
-import React, { useContext } from "react";
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-  MDBCheckbox,
-  MDBIcon,
-} from "mdb-react-ui-kit";
-import "../Signup/Signup.css";
-import { AppContext } from "../../context/appContext";
+import React, { useState } from "react";
+import axios from "axios";
 
-function SignupComp() {
-  const {registerUser} = useContext(AppContext)
+function RegisterComponent() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const registerformData = async () => {
+    console.log("register formData");
+    const url = "https://localhost:7241/api/User/RegisterUser";
+
+    const formData = new FormData();
+
+    formData.append("FirstName", formData.firstName);
+    formData.append("LastName", formData.lastName);
+    formData.append("PhoneNumber", formData.phoneNumber);
+    formData.append("Email ", formData.email);
+    formData.append("Password ", formData.password);
+    formData.append("ConfirmPassword  ", formData.confirmPassword);
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+        // headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      console.log("text", response.status);
+      const jsonData = await response.json();
+      console.log(jsonData);
+
+      if (response.status === 200) {
+        return jsonData;
+      } else {
+        console.log(jsonData);
+        throw Error(jsonData.message);
+      }
+    } catch (e) {
+      throw Error(e.message);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    registerformData()
+      .then(() => {
+        console.log("good");
+      })
+      .catch((e) => {
+        console.log("bad");
+        console.log(e);
+      });
+  };
+
   return (
-    <MDBContainer
-      fluid
-      className="p-4 background-radial-gradient overflow-hidden"
-    >
-      <MDBRow>
-        <MDBCol
-          md="6"
-          className="text-center text-md-start d-flex flex-column justify-content-center"
-        >
-          <h1
-            className="my-5 display-3 fw-bold ls-tight px-3"
-            style={{ color: "hsl(218, 81%, 95%)" }}
+    <div className="w-10/12 mx-auto py-10">
+      <form onSubmit={handleSubmit} className=" flex flex-col gap-y-10">
+        <div className="flex flex-row justify-center gap-x-20 ">
+          <div className="flex flex-row gap-2 items-center">
+            <label htmlFor="firstName">First Name:</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="flex flex-row gap-2 items-center">
+            <label htmlFor="lastName">Last Name:</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+        <div className="flex flex-row justify-center gap-x-20 ">
+          <div className="flex flex-row gap-2 items-center">
+            <label htmlFor="phoneNumber">Phone Number:</label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="flex flex-row gap-2 items-center">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+        <div className="flex flex-row justify-center gap-x-20 ">
+          <div className="flex flex-row gap-2 items-center">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="flex flex-row gap-2 items-center">
+            <label htmlFor="confirmPassword">Confirm Password:</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+        <div className=" w-full flex flex-row justify-center ">
+          <div className="">
+            <label htmlFor="role">Role:</label>
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Role</option>
+              <option value="Admin">Admin</option>
+              <option value="Blogger">Blogger</option>
+            </select>
+          </div>
+        </div>
+        <div className=" flex flex-row justify-center mx-auto ">
+          <button
+            type="submit"
+            className="bg-blue-400 p-2 rounded-lg hover:text-white hover:transition-all"
           >
-            The best offer <br />
-            <span style={{ color: "hsl(218, 81%, 75%)" }}>
-              for your business
-            </span>
-          </h1>
-
-          <p className="px-3" style={{ color: "hsl(218, 81%, 85%)" }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet,
-            itaque accusantium odio, soluta, corrupti aliquam quibusdam tempora
-            at cupiditate quis eum maiores libero veritatis? Dicta facilis sint
-            aliquid ipsum atque?
-          </p>
-        </MDBCol>
-
-        <MDBCol md="6" className="position-relative">
-          <div
-            id="radius-shape-1"
-            className="position-absolute rounded-circle shadow-5-strong"
-          ></div>
-          <div
-            id="radius-shape-2"
-            className="position-absolute shadow-5-strong"
-          ></div>
-
-          <MDBCard className="my-5 bg-glass">
-            <MDBCardBody className="p-5">
-              <MDBRow>
-                <MDBCol col="6">
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    label="First name"
-                    id="form1"
-                    type="text"
-                    name="firstName"
-                  />
-                </MDBCol>
-
-                <MDBCol col="6">
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    label="Last name"
-                    id="form2"
-                    type="text"
-                    name="lastName"
-                  />
-                </MDBCol>
-              </MDBRow>
-
-              <MDBInput
-                wrapperClass="mb-4"
-                label="Email"
-                id="form3"
-                type="email"
-                name="email"
-              />
-              <MDBInput
-                wrapperClass="mb-4"
-                label="Password"
-                id="form4"
-                type="password"
-                name="password"
-              />
-
-               <MDBInput
-                wrapperClass="mb-4"
-                label="Confirm Password"
-                id="form4"
-                type="password"
-                name="confirmPassword"
-              />
-
-               <MDBInput
-                wrapperClass="mb-4"
-                label="Phone"
-                id="form4"
-                type="tel"
-                name="phone"
-              />
-             
-
-              <MDBBtn className="w-100 mb-4" size="md">
-                sign up
-              </MDBBtn>
-
-              <div className="text-center">
-                <p>or sign up with:</p>
-
-                <MDBBtn
-                  tag="a"
-                  color="none"
-                  className="mx-3"
-                  style={{ color: "#1266f1" }}
-                >
-                  <MDBIcon fab icon="facebook-f" size="sm" />
-                </MDBBtn>
-
-                <MDBBtn
-                  tag="a"
-                  color="none"
-                  className="mx-3"
-                  style={{ color: "#1266f1" }}
-                >
-                  <MDBIcon fab icon="twitter" size="sm" />
-                </MDBBtn>
-
-                <MDBBtn
-                  tag="a"
-                  color="none"
-                  className="mx-3"
-                  style={{ color: "#1266f1" }}
-                >
-                  <MDBIcon fab icon="google" size="sm" />
-                </MDBBtn>
-
-                <MDBBtn
-                  tag="a"
-                  color="none"
-                  className="mx-3"
-                  style={{ color: "#1266f1" }}
-                >
-                  <MDBIcon fab icon="github" size="sm" />
-                </MDBBtn>
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 
-export default SignupComp;
+export default RegisterComponent;
