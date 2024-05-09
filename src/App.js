@@ -15,26 +15,28 @@ import PostDetail from "./components/Home/PostDetail";
 import PostAuthor from "./components/Home/PostAuthor";
 import AuthorPosts from "./components/Home/AuthorPosts";
 import AppContextProvider from "./context/appContext";
+import Post from "../src/Post/post";
 function App() {
   return (
-   <AppContextProvider>
-    <div>
-     <Router>
-      {/* <Navigation /> */}
-      <Routes>
-       <Route path="/" element={<Home />} />
-       <Route path="/Home" element={<Home />} />
-       <Route exact path="/ContactUs" element={<ContactUs />} />
-       <Route exact path="/page" element={<LoginComp />} />
-       <Route exact path="/Signup" element={<SignupComp />} />
-       <Route path="*" element={<ErrorPage />} />
-       <Route path="/Posts" element={<Posts />} />
-       <Route path="/post/:id" element={<PostDetail />} />
-       <Route path="/post/users/sdfsdf" element={<AuthorPosts />} />
-      </Routes>
-     </Router>
-    </div>
-   </AppContextProvider>
+    <AppContextProvider>
+      <div>
+        <Router>
+          {/* <Navigation /> */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Home" element={<Home />} />
+            <Route exact path="/ContactUs" element={<ContactUs />} />
+            <Route exact path="/page" element={<LoginComp />} />
+            <Route exact path="/Signup" element={<SignupComp />} />
+            <Route path="*" element={<ErrorPage />} />
+            <Route path="/Posts" element={<Posts />} />
+            <Route path="/post/:id" element={<PostDetail />} />
+            <Route path="/post/users/sdfsdf" element={<AuthorPosts />} />
+            <Route path="/postblog" element={<Post />} />
+          </Routes>
+        </Router>
+      </div>
+    </AppContextProvider>
   );
 }
 

@@ -22,7 +22,7 @@ const Posts = () => {
 
   return (
     <section className="posts">
-      <Link to="/post" className="text-white">
+      <Link to="/postblog" className="text-white">
         <button className="p-2 bg-red-200 text-white">Post a Blog</button>
       </Link>
       {currentPosts.length > 0 ? (
