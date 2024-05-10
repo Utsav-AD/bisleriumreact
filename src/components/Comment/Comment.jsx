@@ -49,19 +49,21 @@ const CommentForm = () => {
         <div className="w-full bg-slate-200 rounded-xl">
           <ul className="">
             {comments.map((c, index) => (
-              <div className="" key={index}>
+              <div className="text-2xl" key={index}>
                 <li>{c}</li>
 
                 <div className="flex flex-row gap-x-2">
                   <button onClick={handleLike}>
                     <FontAwesomeIcon
                       icon={faThumbsUp}
+                      size="1x"
                       style={{ color: liked ? "green" : "black" }}
                     />
                   </button>
                   <button onClick={handleClick}>
                     <FontAwesomeIcon
                       icon={faThumbsDown}
+                      size="1x"
                       style={{
                         transform: clicked
                           ? "rotate(180deg)"

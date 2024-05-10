@@ -22,9 +22,9 @@ const Posts = () => {
 
   return (
     <section className="posts">
-      <Link to="/postblog" className="text-white">
+      {/* <Link to="/postblog" className="text-white">
         <button className="p-2 bg-red-200 text-white">Post a Blog</button>
-      </Link>
+      </Link> */}
       {currentPosts.length > 0 ? (
         <>
           <div className="container posts_container">

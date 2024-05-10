@@ -15,8 +15,8 @@ const PostItem = ({
   const postTitle = title.length > 30 ? title.substr(0, 145) + "..." : title;
   return (
     <article className="post">
-      <div className="post_thumbnail">
-        <img src={thumbnail} alt={title} />
+      <div>
+        <img src={thumbnail} alt={title} className="w-96 h-96  object-cover" />
       </div>
       <div className="post_content">
         <Link to={`/post/${postID}`}>
